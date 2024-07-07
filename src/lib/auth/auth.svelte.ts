@@ -47,6 +47,16 @@ class AuthStore {
     return this.user;
   }
 
+  async loginWithEmailAndPassword({
+    email,
+    password
+  }: {
+    email: string;
+    password: string;
+  }) {
+    this.user = (await pb.collection('users').authWithPassword(email, password)).record;
+  }
+
   async signInWithDiscord() {
     this.user = (await pb.collection('users').authWithOAuth2({ provider: 'discord' })).record;
   }

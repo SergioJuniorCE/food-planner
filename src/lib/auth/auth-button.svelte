@@ -5,18 +5,23 @@
 	import * as Tabs from '$lib/components/ui/tabs';
 
 	import RegisterForm from './register-form.svelte';
+	import { User } from 'lucide-svelte';
+	import LoginForm from './login-form.svelte';
 
 	let {
-		auth,
+		auth
 	}: {
 		auth: ReturnType<typeof getAuthContext>;
 	} = $props();
+
+	$effect(() => {
+		console.log('auth', auth.user);
+	});
 </script>
 
-
-{#if auth.user}
-	<DropdownMenu.Root>
-		<DropdownMenu.Trigger>Account</DropdownMenu.Trigger>
+<DropdownMenu.Root>
+	{#if auth.user}
+		<DropdownMenu.Trigger><User /></DropdownMenu.Trigger>
 		<DropdownMenu.Content>
 			<DropdownMenu.Group>
 				<DropdownMenu.Label>My Account</DropdownMenu.Label>
@@ -27,11 +32,9 @@
 				<DropdownMenu.Item>Subscription</DropdownMenu.Item>
 			</DropdownMenu.Group>
 		</DropdownMenu.Content>
-	</DropdownMenu.Root>
-{:else}
-	<DropdownMenu.Root>
+	{:else}
 		<DropdownMenu.Trigger>
-			<Button>Login</Button>
+			<Button>Sign In</Button>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content>
 			<Tabs.Root value="login" class="w-[400px]">
@@ -40,24 +43,19 @@
 					<Tabs.Trigger value="register">Register</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="login">
-					<DropdownMenu.Group>
+					<DropdownMenu.Group class="flex flex-col gap-2 px-2 pb-2">
 						<DropdownMenu.Label>Login</DropdownMenu.Label>
 						<DropdownMenu.Separator />
-						<DropdownMenu.Item>Email</DropdownMenu.Item>
-						<DropdownMenu.Item>Password</DropdownMenu.Item>
-						<DropdownMenu.Item>Login with Discord</DropdownMenu.Item>
-						<DropdownMenu.Item>Login with Github</DropdownMenu.Item>
+						<LoginForm />
 					</DropdownMenu.Group>
 				</Tabs.Content>
 				<Tabs.Content value="register">
 					<DropdownMenu.Group class="flex flex-col gap-2 px-2 pb-2">
 						<DropdownMenu.Separator />
 						<RegisterForm />
-						<DropdownMenu.Item>Register with Discord</DropdownMenu.Item>
-						<DropdownMenu.Item>Register with Github</DropdownMenu.Item>
 					</DropdownMenu.Group>
 				</Tabs.Content>
 			</Tabs.Root>
 		</DropdownMenu.Content>
-	</DropdownMenu.Root>
-{/if}
+	{/if}
+</DropdownMenu.Root>

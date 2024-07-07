@@ -5,6 +5,7 @@
 
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
+	import Navbar from './navbar.svelte';
 
 	const {
 		children,
@@ -19,17 +20,7 @@
 </script>
 
 {#if auth.isSynced}
-	<header>
-		<nav class="flex items-center justify-between">
-			<div>
-				<a href="/">Home</a>
-				<a href="/about">About</a>
-			</div>
-			<div>
-				<AuthButton {auth} />
-			</div>
-		</nav>
-	</header>
+	<Navbar />
 	{@render children()}
 {:else}
 	<div>Loading...</div>
