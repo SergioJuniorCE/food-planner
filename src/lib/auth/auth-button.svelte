@@ -5,23 +5,14 @@
 	import * as Tabs from '$lib/components/ui/tabs';
 
 	import RegisterForm from './register-form.svelte';
-	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import type { RegisterSchema } from './schema';
 
 	let {
 		auth,
-		registerData
 	}: {
 		auth: ReturnType<typeof getAuthContext>;
-		registerData: SuperValidated<Infer<RegisterSchema>>;
 	} = $props();
 </script>
 
-<!-- {#if auth.user}
-	<Button variant="ghost" on:click={auth.logout}>Logout</Button>
-{:else}
-	<Button variant="ghost" on:click={() => goto('/login')}>Login</Button>
-{/if} -->
 
 {#if auth.user}
 	<DropdownMenu.Root>
@@ -61,7 +52,7 @@
 				<Tabs.Content value="register">
 					<DropdownMenu.Group class="flex flex-col gap-2 px-2 pb-2">
 						<DropdownMenu.Separator />
-						<RegisterForm data={registerData} />
+						<RegisterForm />
 						<DropdownMenu.Item>Register with Discord</DropdownMenu.Item>
 						<DropdownMenu.Item>Register with Github</DropdownMenu.Item>
 					</DropdownMenu.Group>

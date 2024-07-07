@@ -4,8 +4,6 @@
 	import AuthButton from '@/auth/auth-button.svelte';
 
 	import type { Snippet } from 'svelte';
-	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import type { RegisterSchema } from '@/auth/schema';
 	import type { LayoutData } from './$types';
 
 	const {
@@ -28,7 +26,7 @@
 				<a href="/about">About</a>
 			</div>
 			<div>
-				<AuthButton {auth} registerData={data.registerForm} />
+				<AuthButton {auth} />
 			</div>
 		</nav>
 	</header>

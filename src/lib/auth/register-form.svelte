@@ -1,35 +1,42 @@
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
-	import { registerSchema, type RegisterSchema } from './schema';
-	import { zodClient } from 'sveltekit-superforms/adapters';
-
-	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
+	import { Label } from '@/components/ui/label';
+	import { Button } from '@/components/ui/button';
+	import { getAuthContext } from './auth.svelte';
+	import { toast } from 'svelte-sonner';
 
-	export let data: SuperValidated<Infer<RegisterSchema>>;
+	const auth = getAuthContext();
 
-	const form = superForm(data, {
-		validators: zodClient(registerSchema)
-	});
+	let email = $state('');
+	let password = $state('');
+	let confirmPassword = $state('');
 
-	const { form: formData, enhance } = form;
+	async function handleSubmit() {
+		try {
+			await auth.register({
+				email: email,
+				password: password,
+				confirmPassword: confirmPassword
+			});
+			toast.success('Successfully registered');
+		} catch (error: any) {
+			toast.error(error.message);
+		}
+	}
 </script>
 
-<form method="POST" use:enhance>
-	<Form.Field {form} name="email">
-		<Form.Control let:attrs>
-			<Form.Label>Email</Form.Label>
-			<Input {...attrs} bind:value={$formData.email} />
-		</Form.Control>
-		<Form.Description />
-		<Form.FieldErrors />
-	</Form.Field>
-	<Form.Field {form} name="password">
-		<Form.Control let:attrs>
-			<Form.Label>Password</Form.Label>
-			<Input {...attrs} type="password" bind:value={$formData.password} />
-		</Form.Control>
-		<Form.FieldErrors />
-	</Form.Field>
-	<Form.Button>Submit</Form.Button>
+<form class="flex flex-col gap-2">
+	<div>
+		<Label>Email</Label>
+		<Input name="email" placeholder="Email" bind:value={email} />
+	</div>
+	<div>
+		<Label>Password</Label>
+		<Input name="password" placeholder="Password" type="password" bind:value={password} />
+	</div>
+	<div>
+		<Label>Confirm Password</Label>
+		<Input name="confirmPassword" placeholder="Confirm Password" type="password" bind:value={confirmPassword} />
+	</div>
+	<Button type="submit" on:click={handleSubmit}>Submit</Button>
 </form>
