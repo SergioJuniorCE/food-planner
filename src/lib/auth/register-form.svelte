@@ -4,6 +4,7 @@
 	import { Button } from '@/components/ui/button';
 	import { getAuthContext } from './auth.svelte';
 	import { toast } from 'svelte-sonner';
+	import type { ButtonEventHandler } from 'bits-ui';
 
 	const auth = getAuthContext();
 
@@ -11,7 +12,8 @@
 	let password = $state('');
 	let confirmPassword = $state('');
 
-	async function handleSubmit() {
+	async function handleSubmit(event: SubmitEvent | ButtonEventHandler<MouseEvent>) {
+		event.preventDefault();
 		try {
 			await auth.register({
 				email: email,
@@ -25,7 +27,7 @@
 	}
 </script>
 
-<form class="flex flex-col gap-2">
+<form class="flex flex-col gap-2" onsubmit={handleSubmit}>
 	<div>
 		<Label>Email</Label>
 		<Input name="email" placeholder="Email" bind:value={email} />
