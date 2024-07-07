@@ -31,15 +31,5 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Field {form} name="username">
-		<Form.Control let:attrs>
-			<Form.Label>Username</Form.Label>
-			<Input {...attrs} bind:value={$formData.username} />
-		</Form.Control>
-		<Form.Description
-			>This is your public display name. You can change it later and it's optional.</Form.Description
-		>
-		<Form.FieldErrors />
-	</Form.Field>
 	<Form.Button>Submit</Form.Button>
 </form>
