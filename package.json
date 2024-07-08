@@ -48,6 +48,7 @@
     "lucide-svelte": "^0.399.0",
     "mode-watcher": "^0.3.1",
     "pocketbase": "^0.21.3",
+    "svelte-dnd-action": "^0.9.49",
     "svelte-sonner": "^0.3.25",
     "sveltekit-superforms": "^2.15.2",
     "tailwind-merge": "^2.3.0",

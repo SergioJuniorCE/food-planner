@@ -14,9 +14,6 @@
 		auth: ReturnType<typeof getAuthContext>;
 	} = $props();
 
-	$effect(() => {
-		console.log('auth', auth.user);
-	});
 </script>
 
 <DropdownMenu.Root>

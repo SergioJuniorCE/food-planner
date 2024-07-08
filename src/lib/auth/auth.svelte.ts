@@ -39,7 +39,7 @@ class AuthStore {
         emailVisibility: true
       })
     } catch (error) {
-      console.log(JSON.stringify(error, null, 2));
+      console.error(error);
       throw new Error('Failed to register');
     }
 
